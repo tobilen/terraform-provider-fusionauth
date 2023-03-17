@@ -56,6 +56,7 @@ func buildApplication(data *schema.ResourceData) fusionauth.Application {
 		OauthConfiguration: fusionauth.OAuth2Configuration{
 			AuthorizedOriginURLs:          handleStringSlice("oauth_configuration.0.authorized_origin_urls", data),
 			AuthorizedRedirectURLs:        handleStringSlice("oauth_configuration.0.authorized_redirect_urls", data),
+			AuthorizedUrlValidationPolicy: handleStringSlice("oauth_configuration.0.authorized_url_validation_policy", data),
 			ClientAuthenticationPolicy:    fusionauth.ClientAuthenticationPolicy(data.Get("oauth_configuration.0.client_authentication_policy").(string)),
 			ClientSecret:                  data.Get("oauth_configuration.0.client_secret").(string),
 			Debug:                         data.Get("oauth_configuration.0.debug").(bool),
@@ -271,6 +272,7 @@ func buildResourceDataFromApplication(a fusionauth.Application, data *schema.Res
 		{
 			"authorized_origin_urls":             a.OauthConfiguration.AuthorizedOriginURLs,
 			"authorized_redirect_urls":           a.OauthConfiguration.AuthorizedRedirectURLs,
+			"authorized_url_validation_policy":   a.OauthConfiguration.AuthorizedUrlValidationPolicy,
 			"client_authentication_policy":       a.OauthConfiguration.ClientAuthenticationPolicy,
 			"client_secret":                      a.OauthConfiguration.ClientSecret,
 			"debug":                              a.OauthConfiguration.Debug,
